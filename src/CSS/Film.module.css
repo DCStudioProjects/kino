@@ -1,0 +1,16 @@
+.poster {
+    width: 20vw;
+    height: 20vw;
+}
+
+.container {
+    display: flex;
+}
+
+.player {
+    width: 100%;
+}
+
+iframe {
+    width: 100% !important;
+}
