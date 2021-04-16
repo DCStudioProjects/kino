@@ -1,16 +1,55 @@
-.poster {
-    width: 20vw;
-    height: fit-content;
-}
-
 .container {
     display: flex;
+    margin: 1vw;
+}
+
+.poster {
+    width: 15vw;
+    height: fit-content;
+    border-radius: 2vw;
+    margin-right: 1vw;
 }
 
 .player {
     width: 100%;
+    max-height: 60vh;
 }
 
-iframe {
-    width: 100% !important;
+.film_title, .film_title_page {
+    font-weight: 600;
+    font-size: 2vw;
+}
+
+p {
+    margin-top: 1vw;
+}
+
+.description_desc {
+    display: block;
+}
+
+.description_mob {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .film_container {
+        margin-top: 3vw;
+    }
+    .poster {
+        width: 40vw;
+    }
+    .film_title, .film_title_page {
+        font-size: 6vw;
+    }
+    .film_title_page {
+        margin: 0 1vw;
+    }
+    .description_desc {
+        display: none;
+    }
+    .description_mob {
+        display: block;
+        margin: 1vw;
+    }
 }

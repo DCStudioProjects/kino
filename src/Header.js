@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 const Home = () => {
 
     const [display, setDisplay] = useState(false);
-    const [input, setInput] = useState('');
+    const [input, setInput] = useState(' ');
     const [border, setBorder] = useState(null);
-    const [search, setSearch] = useState(['Ничего не найдено']);
+    const [search, setSearch] = useState(['Загрузка...']);
     const [status, setStatus] = useState('Пустой поисковый запрос');
 
     const nav = [
@@ -21,22 +21,29 @@ const Home = () => {
 
     const Fetch = async () => {
         setStatus('Загрузка...')
-        await new Promise(r => setTimeout(r, 1500));
         const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${input}&page=1`, {
             headers: {
                 "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
             }
         });
         const result = await response.json();
+        await new Promise(r => setTimeout(r, 2000));
+
         setSearch(result.films);
 
-        if (result.films.length === 0 || result.films[0] === "Ничего не найдено" || result.films[0] === undefined) {
-            setStatus('Ничего не найдено')
-        } else {
-            setDisplay(true);
-            setBorder('opened')
-            setStatus(false)
+        setStatus(false);
+
+        if (input.length < 1) {
+            setSearch([]);
+            console.log('пустой')
+            setStatus('Пустой запрос');
         }
+        console.log('Поисковый запрос: ' + input)
+
+        if (result?.searchFilmsCountResult === 0 && result?.keyboard !== "") {
+            setStatus('Ничего не найдено')
+        }
+
     }
     const Click = () => {
         if (display === false) {
@@ -50,7 +57,7 @@ const Home = () => {
             <header>
                 <Link to={'/'} className={style.logo}>Дядька в кино</Link>
                 <div className={style.search}>
-                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
+                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
                     {display && (<div className={style.search_results}>
                         {status && (<p className={style.loading}>{status}</p>)}
                         {search.map((res, key) => (
