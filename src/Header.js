@@ -50,7 +50,7 @@ const Home = () => {
             <header>
                 <Link to={'/'} className={style.logo}>Дядька в кино</Link>
                 <div className={style.search}>
-                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setDisplay(true); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
+                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
                     {display && (<div className={style.search_results}>
                         {status && (<p className={style.loading}>{status}</p>)}
                         {search.map((res, key) => (

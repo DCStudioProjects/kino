@@ -4,14 +4,13 @@ import style from './CSS/Film.module.css'
 import { Helmet } from 'react-helmet-async';
 
 const Film = () => {
-    const { film: id } = useParams();
-    const [name, setName] = useState(null);
+    const { film } = useParams();
     const [info, setInfo] = useState(null);
+    const [player, setPlayer] = useState(null);
 
-    console.log(id)
     useEffect(() => {
         const Fetch = async () => {
-            const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/${id}`, {
+            const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/${film}`, {
                 headers: {
                     "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
                 }
@@ -21,17 +20,30 @@ const Film = () => {
             setInfo(result.data);
         }
         Fetch();
-    }, [id])
-    useEffect(() => {
-        setName(id)
-    }, [id])
+    }, [film])
 
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = '//yohoho.cc/yo.js';
+        script.async = true;
+        document.body.appendChild(script);
+        return () => {
+            document.body.removeChild(script);
+          }
+    }, [film])
+    useEffect(() => {
+        setPlayer(`<div id="yohoho" data-kinopoisk=${film}></div>`);
+    }, [film])
     return (
         <div>
+            <Helmet>
+                <title>{`${film} смотреть у Дядьки`}</title>
+            </Helmet>
+            <h1>{info?.nameRu}</h1>
+            <div dangerouslySetInnerHTML={{__html: player}}></div>
             <div className={style.container}>
                 <img className={style.poster} src={info?.posterUrl}></img>
                 <div className={style.content}>
-                    <h1>{info?.nameRu}</h1>
                     <p>{info?.nameEn}</p>
                     {info?.slogan !== null && (<i>"{info?.slogan}"</i>)}
                     <p>Страна:&nbsp;
@@ -57,13 +69,8 @@ const Film = () => {
 
             </p>
                     <p>{info?.description}</p>
-                    <Helmet>
-                        <script src="//yohoho.cc/yo.js"></script>
-                        <title>{`${name} смотреть у Дядьки`}</title>
-                    </Helmet>
                 </div>
             </div>
-            <div id="yohoho" className={style.player} data-kinopoisk={`${name}`}></div>
 
         </div>
     )

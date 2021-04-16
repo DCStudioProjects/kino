@@ -1,6 +1,6 @@
 .poster {
     width: 20vw;
-    height: 20vw;
+    height: fit-content;
 }
 
 .container {

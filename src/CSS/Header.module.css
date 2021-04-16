@@ -20,7 +20,7 @@ header {
     width: 100%;
     border-radius: 0 0 10px 10px;
     position: absolute;
-    z-index: 9;
+    z-index: 99999;
 }
 
 .loading {
