@@ -13,9 +13,9 @@
 button {
   background: #3f2aff;
   border: none;
-  font-size: 4vw;
+  font-size: 1.2vw;
   border-radius: 40px;
-  padding: 2vw;
+  padding: 1vw;
 }
 
 button:hover {

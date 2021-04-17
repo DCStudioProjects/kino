@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import style from './CSS/Header.module.css'
+import style from './CSS/Favourite.module.css'
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { setMany, set, del, get, clear } from 'idb-keyval';
 
 const Favourite = () => {
 
     const [films, setFilms] = useState([]);
-    const [cookies, setCookie, removeCookie] = useCookies(['Favourite']);
-    console.log(cookies);
+    const [favourite, setFavourite] = useState(null);
+
     useEffect(() => {
         const Fetch = async () => {
             const response = await fetch(
@@ -23,14 +23,31 @@ const Favourite = () => {
         Fetch();
     }, [])
 
+    useEffect(() => {
+        const Favourite = async () => {
+            setFavourite(await get('Избранное'));
+            if (await get('Избранное') === undefined) {
+                setFavourite([{ blank: 'Пока здесь пусто :(' }]);
+
+            }
+        }
+        Favourite();
+    }, [])
+
+    console.log(favourite)
+
     return (
-        <div className={style.popular_section}>
-            {films.map((res, key) => (
-                <div className={style.popular} key={key}>
-                    <img className={style.popular_image} src={res.posterUrl}></img>
-                    <Link to={`/film/${res.filmId}`} >{res.nameRu}</Link>
-                </div>
-            ))}
+        <div className={style.favourite_section}>
+            <p className={style.favourite_title}>Избранное</p>
+            <div className={style.favourite}>
+                {favourite?.map((res, key) => (
+                    <div className={style.favourite_item} key={key}>
+                        <p>{res?.blank}</p>
+                        <Link to={`/film/${res.id}`}><img className={style.favourite_image} src={res.poster}></img>
+                            <p>{res.name}</p></Link>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

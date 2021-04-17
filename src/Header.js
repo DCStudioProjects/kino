@@ -52,13 +52,14 @@ const Home = () => {
             setBorder('')
         }
     }
+
     return (
-        <div>
+        <div style={{ width: '100vw' }}>
             <header>
                 <div className={style.links}>
                     <Link to={'/'} className={style.logo}>Дядька в кино</Link>
                     <a className={style.ecosystem} href='https://dnazakaz.gq/' target='_blank' rel="noreferrer">#Назаказ</a>
-                    <a className={style.ecosystem} href='https://dnazakaz.gq/' target='_blank' rel="noreferrer">#Наморе</a>
+                    <a className={style.ecosystem} href='https://namore.gq/' target='_blank' rel="noreferrer">#Наморе</a>
                 </div>
                 <div className={`search ${border}`}>
                     <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>

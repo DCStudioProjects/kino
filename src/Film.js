@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import style from './CSS/Film.module.css'
 import { Helmet } from 'react-helmet-async';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { setMany, set, del, get, clear } from 'idb-keyval';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -15,7 +15,6 @@ const Film = () => {
     const { film } = useParams();
     const [info, setInfo] = useState(null);
     const [gallery, setGallery] = useState(null);
-    const [cookies, setCookie, removeCookie] = useCookies(['Favourite']);
 
     useEffect(() => {
         const Fetch = async () => {
@@ -53,6 +52,29 @@ const Film = () => {
     }
     Fetch();
     }, [film])
+
+    const Add = async () => {
+        
+        if (await get('Избранное') === undefined) {
+            var arr = [];
+            arr.push({ name: info?.nameRu, poster: info?.posterUrl, id: film })
+            console.log(arr)
+            set('Избранное', arr);
+        } else {
+            var arr = await get('Избранное');
+            arr.push({ name: info?.nameRu, poster: info?.posterUrl, id: film })
+            console.log(arr)
+            set('Избранное', arr);
+        }
+        //prev.push(await get('Избранное'))
+        //set('Избранное', prev);
+    }
+
+    const Remove = () => {
+        clear();
+
+    }
+
     //console.log(gallery)
     return (
         <div className={style.film_container}>
@@ -60,8 +82,8 @@ const Film = () => {
                 <title>{`${info?.nameRu} — смотреть у Дядьки онлайн без регистрации и СМС :)`}</title>
             </Helmet>
             <h1 className={style.film_title_page}>{info?.nameRu} — смотреть у Дядьки</h1>
-            <button onClick={() => {console.log('Нажаль добавить'); localStorage.setItem('id', film)}}>Добавить в избранное</button>
-            <button onClick={() => {console.log('Нажаль удалить'); removeCookie('Favourite', { path: '/' }); console.log(cookies)}}>Удалить</button>
+            <button onClick={() => {console.log('Нажаль добавить'); Add();}}>Добавить в избранное</button>
+            <button onClick={() => {console.log('Нажаль удалить'); Remove();}}>Удалить</button>
 
             <div key={film}>
                 <div id="yohoho" className={style.player} data-kinopoisk={film}></div>
