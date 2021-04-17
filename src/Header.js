@@ -65,7 +65,7 @@ const Home = () => {
                     <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
                     {display && (<div className={style.search_results}>
                         {status && (<p className={style.loading}>{status}</p>)}
-                        {search.map((res, key) => (
+                        {search?.map((res, key) => (
                             <div className={style.search_result} key={key}>
                                 <Link className={style.search_result} to={`/film/${res.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder(''); console.log(input) }}>
                                     <img className={style.result_image} src={res.posterUrl}></img>
@@ -87,7 +87,7 @@ const Home = () => {
                 </div>
             </header>
             <nav className={style.nav}>
-                {nav.map((res, key) => (
+                {nav?.map((res, key) => (
                     <Link to={`${res.url}`} key={key} className={style.nav_element}>{res.text}</Link>
                 ))}
             </nav>

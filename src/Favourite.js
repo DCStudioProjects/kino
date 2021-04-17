@@ -18,7 +18,7 @@ const Favourite = () => {
             }
             );
             const result = await response.json();
-            setFilms(result.films.slice(0, 9));
+            setFilms(result?.films?.slice(0, 9));
         }
         Fetch();
     }, [])
@@ -43,8 +43,8 @@ const Favourite = () => {
                 {favourite?.map((res, key) => (
                     <div className={style.favourite_item} key={key}>
                         <p>{res?.blank}</p>
-                        <Link to={`/film/${res.id}`}><img className={style.favourite_image} src={res.poster}></img>
-                            <p>{res.name}</p></Link>
+                        <Link to={`/film/${res.id}`}><img className={style.favourite_image} alt='Произошла ошибка при загрузке данных!' src={res.poster}></img>
+                            <p>{res.name || 'Произошла ошибка при загрузке данных!'}</p></Link>
                     </div>
                 ))}
             </div>

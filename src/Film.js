@@ -15,6 +15,19 @@ const Film = () => {
     const { film } = useParams();
     const [info, setInfo] = useState(null);
     const [gallery, setGallery] = useState(null);
+    const [add, setAdd] = useState(null);
+
+    useEffect(() => {
+        const Fetch = async () => {
+            var arr = await get('Избранное');
+            if (arr?.find(item => item.id === film) === undefined) {
+                setAdd('Добавить в избранное')
+            } else {
+                setAdd('Удалить из избранного')
+            }
+        }
+        Fetch();
+    }, [film])
 
     useEffect(() => {
         const Fetch = async () => {
@@ -53,69 +66,56 @@ const Film = () => {
     Fetch();
     }, [film])
 
-    const Add = async () => {
-        
-        if (await get('Избранное') === undefined) {
+    const Fav = async () => {
+        var arr = await get('Избранное');
+
+        if (arr?.find(item => item.id === film) === undefined) {
+        if (arr === undefined) {
             var arr = [];
-            arr.push({ name: info?.nameRu, poster: info?.posterUrl, id: film })
-            console.log(arr)
+            arr.push({ name: info?.nameRu, poster: info?.posterUrl, id: film });
+            console.log(arr);
             set('Избранное', arr);
+            setAdd('Удалить из избранного')
         } else {
-            var arr = await get('Избранное');
-            arr.push({ name: info?.nameRu, poster: info?.posterUrl, id: film })
-            console.log(arr)
-            set('Избранное', arr);
+            if (arr?.find(item => item.id === film) === undefined) {
+                console.log(arr.find(item => item.id !== film));
+                arr.push({ name: info?.nameRu, poster: info?.posterUrl, id: film });
+                console.log(arr);
+                set('Избранное', arr);
+                setAdd('Удалить из избранного')
+            } 
         }
-        //prev.push(await get('Избранное'))
-        //set('Избранное', prev);
-    }
-
-    const Remove = () => {
-        clear();
-
+        } else {
+            clear();
+            setAdd('Добавить в избранное')
+        }
     }
 
     //console.log(gallery)
     return (
         <div className={style.film_container}>
             <Helmet>
-                <title>{`${info?.nameRu} — смотреть у Дядьки онлайн без регистрации и СМС :)`}</title>
+                <title>{`${info?.nameRu || 'Произошла ошибка при загрузке данных!'} — смотреть у Дядьки онлайн без регистрации и СМС :)`}</title>
             </Helmet>
-            <h1 className={style.film_title_page}>{info?.nameRu} — смотреть у Дядьки</h1>
-            <button onClick={() => {console.log('Нажаль добавить'); Add();}}>Добавить в избранное</button>
-            <button onClick={() => {console.log('Нажаль удалить'); Remove();}}>Удалить</button>
-
+            <div className={style.header_film}>
+                <h1 className={style.film_title_page}>{info?.nameRu || 'Произошла ошибка при загрузке данных!'}</h1>
+                <button onClick={() => {console.log('Нажаль добавить'); Fav();}}>{add}</button>
+            </div>
             <div key={film}>
-                <div id="yohoho" className={style.player} data-kinopoisk={film}></div>
+                <div id="yohoho" className={style.player} data-kinopoisk={film} data-resize="1"></div>
             </div>
             <div className={style.container}>
                 <img className={style.poster} src={info?.posterUrl}></img>
                 <div className={style.content}>
-                    <p className={style.film_title}>{info?.nameRu}</p>
+                    <p className={style.film_title}>{info?.nameRu || 'Произошла ошибка при загрузке данных!'}</p>
                     <p>{info?.nameEn}</p>
-                    {info?.slogan !== null && (<i>"{info?.slogan}"</i>)}
-                    <p>Страна:&nbsp;
-            {info?.countries.map((res, key) => (
-                        <>{res.country}&nbsp;</>
+                    {info?.slogan && (<i>"{info?.slogan}"</i>)}
+                    {info?.countries &&(<p>Страна:&nbsp;
+                        {info?.countries.map((res, key) => (
+                            <span>{res.country}&nbsp;</span>
                     ))}
-                    </p>
-                    <p>Год: {info?.year}</p>
-                    <p>Режиссёр: </p>
-                    <p>Я на <select>
-                        {info?.seasons.map((res, key) => (
-                            <option>{res.number}</option>
-                        ))}
-                    </select> сезоне и
-            на <select>
-                            {info?.seasons.map((res, key) => {
-                                res?.episodes.map((res, key) => (
-                                    <option>{res?.nameEn}</option>
-                                ))
-                            }
-                            )}
-                        </select> серии
-
-            </p>
+                    </p>)}
+                    {info?.year &&(<p>Год: {info?.year}</p>)}
                     <p className={style.description_desc}>{info?.description}</p>
                 </div>
             </div>

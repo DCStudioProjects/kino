@@ -1,3 +1,10 @@
+.header_film {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5vw;
+}
+
 .container {
     display: flex;
     margin: 1vw;
@@ -6,7 +13,7 @@
 .poster {
     width: 15vw;
     height: fit-content;
-    border-radius: 2vw;
+    border-radius: 1vw;
     margin-right: 1vw;
 }
 
