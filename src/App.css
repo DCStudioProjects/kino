@@ -10,6 +10,18 @@
   font-weight: 400;
 }
 
+button {
+  background: #3f2aff;
+  border: none;
+  font-size: 4vw;
+  border-radius: 40px;
+  padding: 2vw;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 body {
   overflow-x: hidden;
   margin: 0;
@@ -20,6 +32,13 @@ body {
 
 a {
   text-decoration: none;
+}
+
+.search {
+  border-radius: 100px;
+  background: #212121;
+  width: 30vw;
+  height: 2.5vw;
 }
 
 .search_input {
@@ -36,7 +55,16 @@ a {
 }
 
 @media (max-width: 767px) {
+  .search {
+    width: 80vw;
+    height: 8vw;
+  }
   .search_input {
+    padding: 0 2vw;
     font-size: 3.5vw;
+    border-radius: 10px;
+  }
+  .search.opened, .search_input.opened {
+    border-radius: 10px 10px 0 0;
   }
 }

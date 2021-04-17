@@ -55,8 +55,12 @@ const Home = () => {
     return (
         <div>
             <header>
-                <Link to={'/'} className={style.logo}>Дядька в кино</Link>
-                <div className={style.search}>
+                <div className={style.links}>
+                    <Link to={'/'} className={style.logo}>Дядька в кино</Link>
+                    <a className={style.ecosystem} href='https://dnazakaz.gq/' target='_blank' rel="noreferrer">#Назаказ</a>
+                    <a className={style.ecosystem} href='https://dnazakaz.gq/' target='_blank' rel="noreferrer">#Наморе</a>
+                </div>
+                <div className={`search ${border}`}>
                     <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
                     {display && (<div className={style.search_results}>
                         {status && (<p className={style.loading}>{status}</p>)}
@@ -83,7 +87,7 @@ const Home = () => {
             </header>
             <nav className={style.nav}>
                 {nav.map((res, key) => (
-                    <Link to={`${res.url}`} key={key}>{res.text}</Link>
+                    <Link to={`${res.url}`} key={key} className={style.nav_element}>{res.text}</Link>
                 ))}
             </nav>
 

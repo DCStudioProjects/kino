@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import style from './CSS/Film.module.css'
 import { Helmet } from 'react-helmet-async';
 import { Swiper, SwiperSlide } from 'swiper/react';
-//import 'swiper/swiper.scss';
+
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
+import 'swiper/components/lazy/lazy.scss';
 
 const Film = () => {
     const { film } = useParams();
     const [info, setInfo] = useState(null);
     const [gallery, setGallery] = useState(null);
+    const [cookies, setCookie, removeCookie] = useCookies(['Favourite']);
 
     useEffect(() => {
         const Fetch = async () => {
@@ -18,7 +25,7 @@ const Film = () => {
                 }
             });
             const result = await response.json();
-            console.log(result.data);
+            //console.log(result.data);
             setInfo(result.data);
         }
         Fetch();
@@ -46,12 +53,16 @@ const Film = () => {
     }
     Fetch();
     }, [film])
+    //console.log(gallery)
     return (
         <div className={style.film_container}>
             <Helmet>
-                <title>{`${film} смотреть у Дядьки`}</title>
+                <title>{`${info?.nameRu} — смотреть у Дядьки онлайн без регистрации и СМС :)`}</title>
             </Helmet>
             <h1 className={style.film_title_page}>{info?.nameRu} — смотреть у Дядьки</h1>
+            <button onClick={() => {console.log('Нажаль добавить'); localStorage.setItem('id', film)}}>Добавить в избранное</button>
+            <button onClick={() => {console.log('Нажаль удалить'); removeCookie('Favourite', { path: '/' }); console.log(cookies)}}>Удалить</button>
+
             <div key={film}>
                 <div id="yohoho" className={style.player} data-kinopoisk={film}></div>
             </div>
@@ -91,12 +102,18 @@ const Film = () => {
             <div className={style.gallery}>
             <Swiper
                 spaceBetween={50}
-                slidesPerView={3}
+                navigation
+                lazy={{loadPrevNext: true}}
+                pagination={{ clickable: true }}
+                scrollbar={{ draggable: true }}                slidesPerView={3}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
             >
                 {gallery?.map((res, key) =>(
-                    <SwiperSlide>Slide {key}</SwiperSlide>
+                    <SwiperSlide>
+                        <img data-src={res?.image} className="swiper-lazy" />
+                        <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                    </SwiperSlide>
                 ))}
                 </Swiper>
             </div>

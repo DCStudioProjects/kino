@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import style from './CSS/Header.module.css'
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Favourite = () => {
 
     const [films, setFilms] = useState([]);
-
+    const [cookies, setCookie, removeCookie] = useCookies(['Favourite']);
+    console.log(cookies);
     useEffect(() => {
         const Fetch = async () => {
             const response = await fetch(
