@@ -1,34 +1,104 @@
-.header_film {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1.5vw;
-}
-
 .container {
     display: flex;
+    align-items: center;
     margin: 1vw;
 }
 
-.poster {
-    width: 15vw;
-    height: fit-content;
-    border-radius: 1vw;
+.poster_panel {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr;
     margin-right: 1vw;
 }
 
+.poster {
+    width: 16vw;
+    border-radius: 1vw;
+}
+
+.film_player {
+    margin: 0 1.5vw 0 1vw;
+    width: 100% !important;
+}
+
 .player {
-    width: 100%;
+    width: 100% !important;
     max-height: 60vh;
 }
 
 .film_title, .film_title_page {
+    margin: 0;
     font-weight: 600;
     font-size: 2vw;
 }
 
-p {
+.favourite_button {
+    margin-top: .7vw;
+    background: #3f2aff;
+    border: none;
+    font-size: 1.2vw;
+    border-radius: 40px;
+    padding: 1vw;
+}
+
+.favourite_button:hover {
+    cursor: pointer;
+}
+
+p, i {
     margin-top: 1vw;
+    font-size: 1vw;
+}
+
+.rating {
+    display: flex;
+}
+
+.kp_rate {
+    display: flex;
+    align-items: center;
+}
+
+.kp_rate p:nth-child(1) {
+    border-radius: 100px;
+    width: fit-content;
+    text-align: center;
+    padding: .5vw 1vw;
+    position: absolute;
+    z-index: 1;
+    background-color: #a3600a;
+}
+
+.kp_rate p:nth-child(2) {
+    width: 6.5vw;
+    padding: .5vw 1vw;
+    border-radius: 100px;
+    text-align: right;
+    background-color: #52310c;
+}
+
+.imdb_rate {
+    display: flex;
+    align-items: center;
+    margin-left: 1vw;
+}
+
+.imdb_rate p:nth-child(1) {
+    border-radius: 100px;
+    width: fit-content;
+    text-align: center;
+    padding: .5vw 1vw;
+    position: absolute;
+    z-index: 1;
+    background-color: #93720b;
+}
+
+.imdb_rate p:nth-child(2) {
+    width: 7.5vw;
+    padding: .5vw 1vw;
+    border-radius: 100px;
+    text-align: right;
+    background-color: #473a0b;
 }
 
 .description_desc {
@@ -39,6 +109,11 @@ p {
     display: none;
 }
 
+.directors {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 767px) {
     .film_container {
         margin-top: 3vw;
@@ -46,11 +121,18 @@ p {
     .poster {
         width: 40vw;
     }
+    p, i {
+        margin-top: 1vw;
+        font-size: 4vw;
+    }
     .film_title, .film_title_page {
         font-size: 6vw;
     }
     .film_title_page {
         margin: 0 1vw;
+    }
+    .favourite_button {
+        font-size: 4vw;
     }
     .description_desc {
         display: none;

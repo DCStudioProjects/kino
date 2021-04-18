@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
-import style from './CSS/Header.module.css'
+import React, { useState, useEffect } from 'react';
+import style from './CSS/Header.module.css';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 const Home = () => {
 
+    const [nav, setNav] = useState(null);
     const [display, setDisplay] = useState(false);
     const [input, setInput] = useState(' ');
     const [border, setBorder] = useState(null);
     const [search, setSearch] = useState(['Загрузка...']);
     const [status, setStatus] = useState('Пустой поисковый запрос');
 
-    const nav = [
-        { url: '/', text: 'Главная' },
-        { url: '/new', text: 'Новинки в HD' },
-        { url: '/new', text: 'Сериалы' },
-        { url: '/new', text: 'Фильмы' },
-        { url: '/new', text: 'Мультсериалы' },
-        { url: '/new', text: 'Подборки' }
-    ]
+    useEffect(() => {
+        const Nav = async () => {
+            const response = await fetch('https://kinopoiskapiunofficial.tech/api/v2.1/films/filters', {
+                headers: {
+                    "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
+                }
+            })
+            const result = await response.json();
+            setNav(result.genres)
+        }
+        Nav();
+    }, [])
 
+    useEffect(() => {
+        const overflow = display === false ? 'auto' : 'hidden'
+        document.body.style.overflowY = overflow;
+
+    }, [display])
     const Fetch = async () => {
-        setStatus('Загрузка...')
+        setStatus('Загрузка...');
         const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${input}&page=1`, {
             headers: {
                 "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
@@ -38,7 +49,7 @@ const Home = () => {
             console.log('пустой')
             setStatus('Пустой запрос');
         }
-        console.log('Поисковый запрос: ' + input)
+        console.log('Поисковый запрос: ' + input);
 
         if (result?.searchFilmsCountResult === 0 && result?.keyboard !== "") {
             setStatus('Ничего не найдено')
@@ -67,16 +78,16 @@ const Home = () => {
                         {status && (<p className={style.loading}>{status}</p>)}
                         {search?.map((res, key) => (
                             <div className={style.search_result} key={key}>
-                                <Link className={style.search_result} to={`/film/${res.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder(''); console.log(input) }}>
-                                    <img className={style.result_image} src={res.posterUrl}></img>
+                                <Link className={style.search_result} draggable='false' to={`/film/${res?.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder(''); console.log(input) }}>
+                                    <img className={style.result_image} alt={res?.nameRu} src={res?.posterUrl}></img>
                                     <div>
-                                        <p>{res.nameRu}</p>
-                                        {res.rating !== undefined && (<p>Рейтинг: {res.rating} ({res.ratingVoteCount})</p>)}
-                                        {res.year !== undefined && (<p>Год: {res.year}</p>)}
-                                        <p>{res.description}</p>
-                                        {res.genres !== undefined && (<p> Жанры:&nbsp;
+                                        <p>{res?.nameRu}</p>
+                                        {res?.rating !== undefined && (<p>Рейтинг: {res?.rating} ({res?.ratingVoteCount})</p>)}
+                                        {res?.year !== undefined && (<p>Год: {res?.year}</p>)}
+                                        <p>{res?.description}</p>
+                                        {res?.genres !== undefined && (<p> Жанры:&nbsp;
                                             {res?.genres?.map((res) => (
-                                                <>{res.genre} </>
+                                                <>{res?.genre} </>
                                             ))}
                                         </p>)}
                                     </div>
@@ -87,11 +98,13 @@ const Home = () => {
                 </div>
             </header>
             <nav className={style.nav}>
-                {nav?.map((res, key) => (
-                    <Link to={`${res.url}`} key={key} className={style.nav_element}>{res.text}</Link>
-                ))}
-            </nav>
+                <ScrollContainer className="scroll-container" horizontal='true' hideScrollbars='false'>
 
+                    {nav?.map((res, key) => (
+                        <Link to={`/genre/${res?.id}`} key={key} draggable='false' className={style.nav_element}>{res?.genre}</Link>
+                    ))}
+                </ScrollContainer>
+            </nav>
         </div >
     )
 }

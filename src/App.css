@@ -10,18 +10,6 @@
   font-weight: 400;
 }
 
-button {
-  background: #3f2aff;
-  border: none;
-  font-size: 1.2vw;
-  border-radius: 40px;
-  padding: 1vw;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
 body {
   overflow-x: hidden;
   margin: 0;
@@ -38,7 +26,7 @@ a {
   border-radius: 100px;
   background: #212121;
   width: 30vw;
-  height: 2.5vw;
+  height: 2.8vw;
 }
 
 .search_input {
@@ -50,11 +38,38 @@ a {
   padding: 0 1vw;
 }
 
+.scroll-container {
+  margin: 1vw 0;
+  padding: 1vw 0;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: space-between;
+  background: #1d1d1d;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+  width: .4vw;
+  height: .4vw;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff6000;
+  border-radius: 100px;
+}
+
 .search.opened, .search_input.opened {
   border-radius: 10px 10px 0 0;
 }
 
+#yohoho-iframe {
+  width: 100% !important;
+}
+
 @media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    height: 1.5vw;
+  }
   .search {
     width: 80vw;
     height: 10vw;

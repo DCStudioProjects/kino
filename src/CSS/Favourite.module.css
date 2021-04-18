@@ -19,6 +19,9 @@
 }
 
 @media (max-width: 767px) {
+    .favourite_title {
+        font-size: 6vw;
+    }
     .favourite_item {
         width: calc(100vw / 3);
     }

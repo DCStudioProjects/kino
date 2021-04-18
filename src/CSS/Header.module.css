@@ -28,6 +28,8 @@ header {
     border-radius: 0 0 10px 10px;
     position: absolute;
     z-index: 99999;
+    height: 50vh;
+    overflow-y: auto;
 }
 
 .loading {
@@ -48,13 +50,13 @@ header {
 }
 
 .nav {
-    margin: 1vw 0;
-    width: 40vw;
-    display: flex;
-    justify-content: space-between;
+    padding: 0 2vw;
     background: #1d1d1d;
-    width: 100%;
-    padding: 1vw 5vw;
+}
+
+.nav a {
+    white-space: nowrap;
+    margin-right: 1vw;
 }
 
 @media (max-width: 767px) {
