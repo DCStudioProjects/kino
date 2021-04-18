@@ -7,7 +7,6 @@ const Home = () => {
 
     const [nav, setNav] = useState(null);
     const [display, setDisplay] = useState(false);
-    const [input, setInput] = useState(' ');
     const [border, setBorder] = useState(null);
     const [search, setSearch] = useState(['Загрузка...']);
     const [status, setStatus] = useState('Пустой поисковый запрос');
@@ -30,7 +29,7 @@ const Home = () => {
         document.body.style.overflowY = overflow;
 
     }, [display])
-    const Fetch = async () => {
+    const Fetch = async (input) => {
         setStatus('Загрузка...');
         const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${input}&page=1`, {
             headers: {
@@ -49,7 +48,6 @@ const Home = () => {
             console.log('пустой')
             setStatus('Пустой запрос');
         }
-        console.log('Поисковый запрос: ' + input);
 
         if (result?.searchFilmsCountResult === 0 && result?.keyboard !== "") {
             setStatus('Ничего не найдено')
@@ -65,7 +63,7 @@ const Home = () => {
     }
 
     return (
-        <div style={{ width: '100vw' }}>
+        <div>
             <header>
                 <div className={style.links}>
                     <Link to={'/'} className={style.logo}>Дядька в кино</Link>
@@ -73,12 +71,12 @@ const Home = () => {
                     <a className={style.ecosystem} href='https://namore.gq/' target='_blank' rel="noreferrer">#Наморе</a>
                 </div>
                 <div className={`search ${border}`}>
-                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(); }} placeholder="Привет от дядьки! ❤️"></input>
+                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setDisplay(true); setBorder('opened'); Fetch(e.target.value); }} placeholder="Привет от дядьки! ❤️"></input>
                     {display && (<div className={style.search_results}>
                         {status && (<p className={style.loading}>{status}</p>)}
                         {search?.map((res, key) => (
                             <div className={style.search_result} key={key}>
-                                <Link className={style.search_result} draggable='false' to={`/film/${res?.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder(''); console.log(input) }}>
+                                <Link className={style.search_result} draggable='false' to={`/film/${res?.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder('') }}>
                                     <img className={style.result_image} alt={res?.nameRu} src={res?.posterUrl}></img>
                                     <div>
                                         <p>{res?.nameRu}</p>

@@ -38,7 +38,6 @@ const Film = () => {
                 }
             });
             const result = await response.json();
-            //console.log(result.data);
             setInfo(result);
         }
         Fetch();
@@ -87,14 +86,11 @@ const Film = () => {
         if (arr === undefined) {
             arr = [];
             arr.push({ name: info?.data.nameRu, poster: info?.data.posterUrl, id: film });
-            console.log(arr);
             set('Избранное', arr);
             setAdd('Удалить из избранного')
         } else {
             if (arr?.find(item => item.id === film) === undefined) {
-                console.log(arr.find(item => item.id !== film));
                 arr.push({ name: info?.data.nameRu, poster: info?.data.posterUrl, id: film });
-                console.log(arr);
                 set('Избранное', arr);
                 setAdd('Удалить из избранного')
             } 
@@ -114,13 +110,15 @@ const Film = () => {
             <div key={film} className={style.film_player}>
                 <div id="yohoho" className={style.player} data-kinopoisk={film} data-resize="1"></div>
             </div>
+
+            <h1 className={style.film_title}>{info?.data.nameRu || 'Произошла ошибка при загрузке данных!'}</h1>
+
             <div className={style.container}>
                 <div className={style.poster_panel}>
                     <img className={style.poster} alt={info?.data.nameRu} src={info?.data.posterUrl}></img>
-                    <button className={style.favourite_button} onClick={() => {console.log('Нажаль добавить'); Fav();}}>{add}</button>
+                    <button className={style.favourite_button} onClick={() => {Fav();}}>{add}</button>
                 </div>
                 <div className={style.content}>
-                    <p className={style.film_title}>{info?.data.nameRu || 'Произошла ошибка при загрузке данных!'}</p>
                     <p>{info?.data.nameEn}</p>
                     {info?.data.slogan && (<i>"{info?.data.slogan}"</i>)}
                     {info?.data.countries &&(<p>Страна:&nbsp;
@@ -142,6 +140,7 @@ const Film = () => {
                         if (res?.professionText?.includes('Режиссеры')) {
                             return res
                         }
+                        return res
                     }).slice(0, 3).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
                     ))}</div>)}
@@ -149,6 +148,8 @@ const Film = () => {
                         if (res?.professionText?.includes('Актеры')) {
                             return res
                         }
+                        return res
+
                     }).slice(0, 5).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
                     ))}</div>)}

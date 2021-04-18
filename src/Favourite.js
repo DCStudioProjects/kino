@@ -18,8 +18,6 @@ const Favourite = () => {
         Favourite();
     }, [])
 
-    console.log(favourite)
-
     return (
         <div className={style.favourite_section}>
             <p className={style.favourite_title}>Избранное</p>

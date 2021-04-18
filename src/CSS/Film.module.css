@@ -1,6 +1,5 @@
 .container {
     display: flex;
-    align-items: center;
     margin: 1vw;
 }
 
@@ -32,6 +31,11 @@
     font-size: 2vw;
 }
 
+.film_title {
+    width: 100%;
+    margin: 1vw;
+}
+
 .favourite_button {
     margin-top: .7vw;
     background: #3f2aff;
@@ -46,7 +50,7 @@
 }
 
 p, i {
-    margin-top: 1vw;
+    margin-bottom: 1vw;
     font-size: 1vw;
 }
 
@@ -125,14 +129,16 @@ p, i {
         margin-top: 1vw;
         font-size: 4vw;
     }
-    .film_title, .film_title_page {
+    .film_title {
         font-size: 6vw;
+        margin: 2vw;
     }
-    .film_title_page {
-        margin: 0 1vw;
+    .poster_panel {
+        margin-right: 2vw;
     }
     .favourite_button {
         font-size: 4vw;
+        height: fit-content;
     }
     .description_desc {
         display: none;
