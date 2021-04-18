@@ -54,7 +54,7 @@ header {
     background: #1d1d1d;
 }
 
-.nav a {
+.nav_element {
     white-space: nowrap;
     margin-right: 1vw;
 }
@@ -85,7 +85,7 @@ header {
     .nav_element {
         width: fit-content;
         white-space: nowrap;
-        margin-right: 4vw;
+        margin-right: 3vw;
     }
     .result_image {
         width: 15vw;

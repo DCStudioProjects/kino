@@ -140,6 +140,22 @@ p, i {
         font-size: 4vw;
         height: fit-content;
     }
+    .kp_rate p:nth-child(1) {
+        width: 11vw;
+        padding: 1vw 2vw;
+    }
+    .kp_rate p:nth-child(2) {
+        width: 20vw;
+        padding: 1vw 2vw;
+    }
+    .imdb_rate p:nth-child(1) {
+        width: 16vw;
+        padding: 1vw 2vw;
+    }
+    .imdb_rate p:nth-child(2) {
+        width: 25vw;
+        padding: 1vw 2vw;
+    }
     .description_desc {
         display: none;
     }
