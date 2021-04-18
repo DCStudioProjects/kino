@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import style from './CSS/Film.module.css';
 import { Helmet } from 'react-helmet-async';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, Navigation, Pagination } from 'swiper/react';
 import { set, get, clear } from 'idb-keyval';
 
 import 'swiper/swiper.scss';
@@ -141,6 +141,7 @@ const Film = () => {
                             return res
                         }
                         return res
+
                     }).slice(0, 3).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
                     ))}</div>)}
@@ -148,7 +149,7 @@ const Film = () => {
                         if (res?.professionText?.includes('Актеры')) {
                             return res
                         }
-                        return res
+                        return null
 
                     }).slice(0, 5).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
@@ -163,14 +164,14 @@ const Film = () => {
                 navigation
                 lazy={{loadPrevNext: true}}
                 pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}                slidesPerView={3}
+                scrollbar={{ draggable: true }}                slidesPerView={1}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
             >
                 {gallery?.map((res, key) =>(
                     <SwiperSlide key={key}>
                         <img data-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
-                        <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                        <h1>Slide {key}</h1>
                     </SwiperSlide>
                 ))}
                 </Swiper>
