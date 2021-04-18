@@ -28,7 +28,7 @@ header {
     border-radius: 0 0 10px 10px;
     position: absolute;
     z-index: 99999;
-    height: 50vh;
+    max-height: 50vh;
     overflow-y: auto;
 }
 

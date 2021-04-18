@@ -82,7 +82,6 @@ const Home = () => {
                                         <p>{res?.nameRu}</p>
                                         {res?.rating !== undefined && (<p>Рейтинг: {res?.rating} ({res?.ratingVoteCount})</p>)}
                                         {res?.year !== undefined && (<p>Год: {res?.year}</p>)}
-                                        <p>{res?.description}</p>
                                         {res?.genres !== undefined && (<p> Жанры:&nbsp;
                                             {res?.genres?.map((res) => (
                                                 <>{res?.genre} </>

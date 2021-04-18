@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import style from './CSS/Film.module.css';
 import { Helmet } from 'react-helmet-async';
-import { Swiper, SwiperSlide, Navigation, Pagination } from 'swiper/react';
+import SwiperCore, { Navigation, Scrollbar, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { set, get, clear } from 'idb-keyval';
 
 import 'swiper/swiper.scss';
@@ -11,7 +12,10 @@ import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 import 'swiper/components/lazy/lazy.scss';
 
+SwiperCore.use([Navigation, Scrollbar, A11y]);
+
 const Film = () => {
+
     const { film } = useParams();
     const [info, setInfo] = useState(null);
     const [gallery, setGallery] = useState(null);
@@ -163,14 +167,14 @@ const Film = () => {
                 spaceBetween={50}
                 navigation
                 lazy={{loadPrevNext: true}}
-                pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}                slidesPerView={1}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
             >
                 {gallery?.map((res, key) =>(
                     <SwiperSlide key={key}>
-                        <img data-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
+                        <img data-img-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
+                        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                         <h1>Slide {key}</h1>
                     </SwiperSlide>
                 ))}
