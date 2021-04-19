@@ -18,8 +18,24 @@ header {
 .ecosystem {
     background: #3f2aff;
     margin-right: 1vw;
-    padding: .7vw 1vw;
+    padding: .6vw 1vw;
     border-radius: 100px;
+}
+
+.search_container {
+    display: flex;
+    align-items: center;
+}
+
+.search_button {
+    background: #3f2aff;
+    border-radius: 100px;
+    height: 2.8vw;
+    width: 35.5vw;
+    padding-right: 1.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .search_results {

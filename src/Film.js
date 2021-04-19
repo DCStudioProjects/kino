@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import style from './CSS/Film.module.css';
 import { Helmet } from 'react-helmet-async';
-import SwiperCore, { Navigation, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { Navigation, Scrollbar, A11y, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { set, get, clear } from 'idb-keyval';
 
@@ -12,7 +12,7 @@ import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 import 'swiper/components/lazy/lazy.scss';
 
-SwiperCore.use([Navigation, Scrollbar, A11y]);
+SwiperCore.use([Navigation, Scrollbar, A11y, Lazy]);
 
 const Film = () => {
 
@@ -158,24 +158,22 @@ const Film = () => {
                     }).slice(0, 5).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
                     ))}</div>)}
+                    
                 </div>
             </div>
             <p className={style.description_mob}>{info?.description}</p>
-
             <div className={style.gallery}>
             <Swiper
                 spaceBetween={50}
                 navigation
                 lazy={{loadPrevNext: true}}
-                scrollbar={{ draggable: true }}                slidesPerView={1}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
+                scrollbar={{ draggable: true }}
+                slidesPerView={1}
             >
                 {gallery?.map((res, key) =>(
                     <SwiperSlide key={key}>
-                        <img data-img-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
-                        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-                        <h1>Slide {key}</h1>
+                        <img data-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
+                        <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                     </SwiperSlide>
                 ))}
                 </Swiper>

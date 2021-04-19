@@ -7,9 +7,10 @@ const Home = () => {
 
     const [nav, setNav] = useState(null);
     const [display, setDisplay] = useState(false);
-    const [border, setBorder] = useState(null);
+    const [border, setBorder] = useState('');
     const [search, setSearch] = useState(['Загрузка...']);
     const [status, setStatus] = useState('Пустой поисковый запрос');
+    const [input, setInput] = useState(null);
 
     useEffect(() => {
         const Nav = async () => {
@@ -70,29 +71,33 @@ const Home = () => {
                     <a className={style.ecosystem} href='https://dnazakaz.gq/' target='_blank' rel="noreferrer">#Назаказ</a>
                     <a className={style.ecosystem} href='https://namore.gq/' target='_blank' rel="noreferrer">#Наморе</a>
                 </div>
-                <div className={`search ${border}`}>
-                    <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setDisplay(true); setBorder('opened'); Fetch(e.target.value); }} placeholder="Привет от дядьки! ❤️"></input>
-                    {display && (<div className={style.search_results}>
-                        {status && (<p className={style.loading}>{status}</p>)}
-                        {search?.map((res, key) => (
-                            <div className={style.search_result} key={key}>
-                                <Link className={style.search_result} draggable='false' to={`/film/${res?.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder('') }}>
-                                    <img className={style.result_image} alt={res?.nameRu} src={res?.posterUrl}></img>
-                                    <div>
-                                        <p>{res?.nameRu}</p>
-                                        {res?.rating !== undefined && (<p>Рейтинг: {res?.rating} ({res?.ratingVoteCount})</p>)}
-                                        {res?.year !== undefined && (<p>Год: {res?.year}</p>)}
-                                        {res?.genres !== undefined && (<p> Жанры:&nbsp;
-                                            {res?.genres?.map((res) => (
-                                                <>{res?.genre} </>
-                                            ))}
-                                        </p>)}
-                                    </div>
-                                </Link>
-                            </div>
-                        ))}
-                    </div>)}
+                <div className={style.search_container}>
+                    <div className={`search ${border}`}>
+                        <input type="text" className={`search_input ${border}`} onClick={() => { setDisplay(!display); Click(); }} onChange={e => { setInput(e.target.value); setDisplay(true); setBorder('opened'); Fetch(e.target.value); }} placeholder="Привет от дядьки! ❤️"></input>
+                        {display && (<div className={style.search_results}>
+                            {status && (<p className={style.loading}>{status}</p>)}
+                            {search?.map((res, key) => (
+                                <div className={style.search_result} key={key}>
+                                    <Link className={style.search_result} draggable='false' to={`/film/${res?.filmId}`} key={key} onClick={() => { setDisplay(!display); setBorder('') }}>
+                                        <img className={style.result_image} alt={res?.nameRu} src={res?.posterUrl}></img>
+                                        <div>
+                                            <p>{res?.nameRu}</p>
+                                            {res?.rating !== undefined && (<p>Рейтинг: {res?.rating} ({res?.ratingVoteCount})</p>)}
+                                            {res?.year !== undefined && (<p>Год: {res?.year}</p>)}
+                                            {res?.genres !== undefined && (<p> Жанры:&nbsp;
+                                                {res?.genres?.map((res) => (
+                                                    <>{res?.genre} </>
+                                                ))}
+                                            </p>)}
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>)}
+                    </div>
+                    <Link className={style.search_button} to={`/search/${input}`}>Найти</Link>
                 </div>
+
             </header>
             <nav className={style.nav}>
                 <ScrollContainer className="scroll-container" horizontal='true' hideScrollbars='false'>

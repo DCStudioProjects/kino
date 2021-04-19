@@ -1,0 +1,31 @@
+.search_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.search_title {
+    font-size: 2vw;
+    font-weight: 600;
+    margin: 1vw;
+}
+
+.search_item {
+    padding: 0 1vw;
+}
+
+.search_image {
+    width: 10vw;
+    border-radius: 1.5vw;
+}
+
+@media (max-width: 767px) {
+    .search_title {
+        font-size: 6vw;
+    }
+    .search_item {
+        width: calc(100vw / 3);
+    }
+    .search_image {
+        height: 45vw;
+    }
+}

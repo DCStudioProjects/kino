@@ -43,6 +43,7 @@
     font-size: 1.2vw;
     border-radius: 40px;
     padding: 1vw;
+    height: fit-content;
 }
 
 .favourite_button:hover {
@@ -51,7 +52,7 @@
 
 p, i {
     margin-bottom: 1vw;
-    font-size: 1vw;
+    font-size: 1.1vw;
 }
 
 .rating {
@@ -118,6 +119,10 @@ p, i {
     flex-wrap: wrap;
 }
 
+.gallery {
+    height: 50vh;
+}
+
 @media (max-width: 767px) {
     .film_container {
         margin-top: 3vw;
@@ -138,7 +143,6 @@ p, i {
     }
     .favourite_button {
         font-size: 4vw;
-        height: fit-content;
     }
     .kp_rate p:nth-child(1) {
         width: 11vw;
