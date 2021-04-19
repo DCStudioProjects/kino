@@ -30,9 +30,8 @@ header {
 .search_button {
     background: #3f2aff;
     border-radius: 100px;
-    height: 2.8vw;
-    width: 35.5vw;
-    padding-right: 1.5vw;
+    padding: .6vw 1.5vw;
+    margin-left: 1vw;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -92,6 +91,10 @@ header {
     .ecosystem {
         margin: 0;
         padding: 2vw;
+    }
+    .search_button {
+        height: 10vw;
+        padding: 0 2vw;
     }
     .nav {
         width: 100%;

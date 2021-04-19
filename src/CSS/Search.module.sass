@@ -1,0 +1,45 @@
+.search_section
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+
+.search_title
+    font-size: 2vw
+    font-weight: 600
+    margin: 1vw
+
+.search_item
+    padding: 0 1vw
+
+.search_image
+    width: 10vw
+    border-radius: 1.5vw
+
+.pages
+    display: flex
+
+.pages_a
+    margin-right: 1vw
+    padding: .2vw 1vw
+    border: 1px solid #3f2aff
+    border-radius: 100px
+
+.pages_a:nth-child(1)
+    background: #3f2aff
+
+.pages_a:focus
+    background: #3f2aff
+
+.pages_a:focus
+    &+ .pages_a:nth-child(1)
+        background: transparent
+
+@media (max-width: 767px)
+    .search_title
+        font-size: 6vw
+
+    .search_item
+        width: calc(100vw / 3)
+
+    .search_image
+        height: 45vw
+        width: auto

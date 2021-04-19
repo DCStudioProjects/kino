@@ -95,7 +95,7 @@ const Home = () => {
                             ))}
                         </div>)}
                     </div>
-                    <Link className={style.search_button} to={`/search/${input}`}>Найти</Link>
+                    <Link className={style.search_button} to={`/search/${input}/1`}>Найти</Link>
                 </div>
 
             </header>

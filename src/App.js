@@ -1,4 +1,4 @@
-import './App.css';
+import './App.sass';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Header from "./Header";
@@ -17,7 +17,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/film/:film" component={Film} />
-          <Route path="/search/:search" component={Search} />
+          <Route path="/search/:search/:number" component={Search} />
         </Switch>
       </Router>
     </HelmetProvider>

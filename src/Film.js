@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import style from './CSS/Film.module.css';
 import { Helmet } from 'react-helmet-async';
-import SwiperCore, { Navigation, Scrollbar, A11y, Lazy } from 'swiper';
+import SwiperCore, { Navigation, A11y, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { set, get, clear } from 'idb-keyval';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
 import 'swiper/components/lazy/lazy.scss';
 
-SwiperCore.use([Navigation, Scrollbar, A11y, Lazy]);
+SwiperCore.use([Navigation, A11y, Lazy]);
 
 const Film = () => {
 
@@ -167,7 +165,6 @@ const Film = () => {
                 spaceBetween={50}
                 navigation
                 lazy={{loadPrevNext: true}}
-                scrollbar={{ draggable: true }}
                 slidesPerView={1}
             >
                 {gallery?.map((res, key) =>(
