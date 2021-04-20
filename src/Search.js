@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import style from "./CSS/Search.module.sass";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Link } from "react-router-dom";
 
 const Search = () => {
     const { search, number } = useParams();
@@ -27,22 +27,27 @@ const Search = () => {
     }, [search, number])
     return (
         <div>
-            <h1 className={style.search_title}>Результаты поиска по запросу: "{search}"</h1>
-            <div className={style.search_section}>
-                {result?.films?.map((res, key) => (
-                    <div className={style.search_item} key={key}>
-                        <Link to={`/film/${res?.filmId}`}>
-                            <img src={res?.posterUrl} className={style.search_image} />
-                            <p>{res?.nameRu}</p>
-                        </Link>
-                    </div>
-                ))}
-            </div>
-            <div className={style.pages}>
-                {pages?.map((res, key) => (
-                    <Link to={`${res + 1}`} key={key} tabindex="0" className={style.pages_a}>{res + 1}</Link>
-                ))}
-            </div>
+            {search !== 'null' && search !== ' ' && (<h1 className={style.search_title}>Результаты поиска по запросу: "{search}"</h1>)}
+            {(search === 'null' || search === ' ')  && (<h1 className={style.search_title}>Пустой поисковый запрос</h1>)}
+            {search !== 'null' && search !== ' ' && (<div>
+                <div className={style.search_section}>
+                    {result?.films?.map((res, key) => (
+                        <div className={style.search_item} key={key}>
+                            <Link to={`/film/${res?.filmId}`}>
+                                <img src={res?.posterUrl} className={style.search_image} />
+                                <p>{res?.nameRu}</p>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+                <div className={style.pages}>
+                    {number > 1 && (<Link to={`/${number - 1}`}><span className={style.pages_a}>&lt;</span></Link>)}
+                    {pages?.map((res, key) => (
+                        <NavLink to={`${res + 1}`} key={key} className={style.pages_a} activeClassName={style.pages_a_active}>{res + 1}</NavLink>
+                    ))}
+                    {number < result?.pagesCount && (<Link to={`/${number + 1}`}><span className={style.pages_a}>&gt;</span></Link>)}
+                </div>
+            </div>)}
         </div>
     )
 }

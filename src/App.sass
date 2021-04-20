@@ -9,17 +9,19 @@
   outline: 0
   position: relative
   font-weight: 400
+  font-size: 1vw
 
 body
-  overflow-x: hidden
-  margin: 0
-  padding: 0
   background-color: #040404
-  max-width: 1500px
-  width: 100vw
 
 a
   text-decoration: none
+
+.fixed-progress-bar
+  position: fixed
+  left: 0
+  top: 0
+  width: 100%
 
 .search
   border-radius: 100px
@@ -69,13 +71,19 @@ a
 .swiper-lazy
   width: 100%
 
+footer
+  padding: 1vw
+
 @media (max-width: 767px)
+  *
+    font-size: 4vw
+
   ::-webkit-scrollbar
     width: 1.5vw
     height: 1.5vw
 
   .search
-    width: 80vw
+    width: 70vw
     height: 10vw
     margin: 2vw 0
 

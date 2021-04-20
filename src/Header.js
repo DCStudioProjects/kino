@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import style from './CSS/Header.module.css';
+import style from './CSS/Header.module.sass';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import ScrollContainer from 'react-indiana-drag-scroll'
 

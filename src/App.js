@@ -1,10 +1,12 @@
 import './App.sass';
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Header from "./Header";
 import Home from "./Home";
 import Film from "./Film";
 import Search from "./Search";
+import Footer from "./Footer";
 
 const App = () => {
   return (
@@ -19,9 +21,9 @@ const App = () => {
           <Route path="/film/:film" component={Film} />
           <Route path="/search/:search/:number" component={Search} />
         </Switch>
+        <Footer />
       </Router>
     </HelmetProvider>
   );
 }
-
 export default App;

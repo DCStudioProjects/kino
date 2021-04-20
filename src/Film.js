@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { ProgressBar } from 'reprogressbars';
 import { useParams } from "react-router-dom";
-import style from './CSS/Film.module.css';
+import style from './CSS/Film.module.sass';
 import { Helmet } from 'react-helmet-async';
 import SwiperCore, { Navigation, A11y, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,7 +14,6 @@ import 'swiper/components/lazy/lazy.scss';
 SwiperCore.use([Navigation, A11y, Lazy]);
 
 const Film = () => {
-
     const { film } = useParams();
     const [info, setInfo] = useState(null);
     const [gallery, setGallery] = useState(null);
@@ -98,11 +98,19 @@ const Film = () => {
             } 
         }
         } else {
-            clear();
+            console.log(arr);
+            arr?.reduce((resarr, res, index) => {
+                console.log(res)
+                if (res.id === film) {
+                    arr.splice(index, 1)
+                }
+            }, [])
+            console.log(arr);
+            set('Избранное', arr);
             setAdd('Добавить в избранное')
         }
     }
-
+    
     return (
         <div className={style.film_container}>
             <Helmet>
@@ -118,7 +126,6 @@ const Film = () => {
             <div className={style.container}>
                 <div className={style.poster_panel}>
                     <img className={style.poster} alt={info?.data.nameRu} src={info?.data.posterUrl}></img>
-                    <button className={style.favourite_button} onClick={() => {Fav();}}>{add}</button>
                 </div>
                 <div className={style.content}>
                     <p>{info?.data.nameEn}</p>
@@ -160,6 +167,8 @@ const Film = () => {
                 </div>
             </div>
             <p className={style.description_mob}>{info?.description}</p>
+            <button className={style.favourite_button} onClick={() => {Fav();}}>{add}</button>
+
             <div className={style.gallery}>
             <Swiper
                 spaceBetween={50}
