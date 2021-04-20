@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import Header from "./Header";
 import Home from "./Home";
 import Film from "./Film";
+import Genre from "./Genre";
 import Search from "./Search";
 import Footer from "./Footer";
 
@@ -20,6 +21,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="/film/:film" component={Film} />
           <Route path="/search/:search/:number" component={Search} />
+          <Route path="/genre/:genre/:number" component={Genre} />
         </Switch>
         <Footer />
       </Router>

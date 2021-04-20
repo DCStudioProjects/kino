@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { ProgressBar } from 'reprogressbars';
 import { useParams } from "react-router-dom";
 import style from './CSS/Film.module.sass';
 import { Helmet } from 'react-helmet-async';
@@ -52,51 +51,51 @@ const Film = () => {
         document.body.appendChild(script);
         return () => {
             document.body.removeChild(script);
-          }
+        }
     }, [film])
 
     useEffect(() => {
         const Fetch = async () => {
-        const response = await fetch (`https://kinopoiskapiunofficial.tech/api/v2.1/films/${film}/frames`, {
-            headers: {
-                "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
-            }
-        });
-        const result = await response.json();
-        setGallery(result.frames)
-    }
-    Fetch();
+            const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/${film}/frames`, {
+                headers: {
+                    "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
+                }
+            });
+            const result = await response.json();
+            setGallery(result.frames.reverse())
+        }
+        Fetch();
     }, [film])
-    
+
     useEffect(() => {
         const Fetch = async () => {
-        const response = await fetch (`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${film}`, {
-            headers: {
-                "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
-            }
-        });
-        const result = await response.json();
-        setStaff(result)
-    }
-    Fetch();
+            const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${film}`, {
+                headers: {
+                    "X-API-KEY": "ceff3505-c77c-450a-8abb-aa29f638f5ee"
+                }
+            });
+            const result = await response.json();
+            setStaff(result)
+        }
+        Fetch();
     }, [film])
 
     const Fav = async () => {
         var arr = await get('Избранное');
 
         if (arr?.find(item => item.id === film) === undefined) {
-        if (arr === undefined) {
-            arr = [];
-            arr.push({ name: info?.data.nameRu, poster: info?.data.posterUrl, id: film });
-            set('Избранное', arr);
-            setAdd('Удалить из избранного')
-        } else {
-            if (arr?.find(item => item.id === film) === undefined) {
+            if (arr === undefined) {
+                arr = [];
                 arr.push({ name: info?.data.nameRu, poster: info?.data.posterUrl, id: film });
                 set('Избранное', arr);
                 setAdd('Удалить из избранного')
-            } 
-        }
+            } else {
+                if (arr?.find(item => item.id === film) === undefined) {
+                    arr.push({ name: info?.data.nameRu, poster: info?.data.posterUrl, id: film });
+                    set('Избранное', arr);
+                    setAdd('Удалить из избранного')
+                }
+            }
         } else {
             console.log(arr);
             arr?.reduce((resarr, res, index) => {
@@ -110,7 +109,7 @@ const Film = () => {
             setAdd('Добавить в избранное')
         }
     }
-    
+
     return (
         <div className={style.film_container}>
             <Helmet>
@@ -129,13 +128,13 @@ const Film = () => {
                 </div>
                 <div className={style.content}>
                     <p>{info?.data.nameEn}</p>
-                    {info?.data.slogan && (<i>"{info?.data.slogan}"</i>)}
-                    {info?.data.countries &&(<p>Страна:&nbsp;
+                    {info?.data.slogan && (<i>«{info?.data.slogan}»</i>)}
+                    {info?.data.countries && (<p>Страна:&nbsp;
                         {info?.data.countries.map((res, key) => (
                             <span key={key}>{res?.country}&nbsp;</span>
-                    ))}
+                        ))}
                     </p>)}
-                    {info?.data.year &&(<p>Год: {info?.data.year}</p>)}
+                    {info?.data.year && (<p>Год: {info?.data.year}</p>)}
                     <div className={style.rating}>
                         <span className={style.kp_rate}>
                             <p>КП</p><p>{info?.rating.rating}</p>
@@ -145,13 +144,13 @@ const Film = () => {
                         </span>
                     </div>
                     <p className={style.description_desc}>{info?.data.description}</p>
-                    {(<div className={style.directors}><p>Режиссёры:&nbsp;</p>{staff?.filter(res => {
+                    {(<div className={style.directors}><p>Режиссёр:&nbsp;</p>{staff?.filter(res => {
                         if (res?.professionText?.includes('Режиссеры')) {
                             return res
                         }
                         return res
 
-                    }).slice(0, 3).map((res, key) => (
+                    }).slice(0, 1).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
                     ))}</div>)}
                     {(<div className={style.directors}><p>Актёры:&nbsp;</p>{staff?.filter(res => {
@@ -160,28 +159,29 @@ const Film = () => {
                         }
                         return null
 
-                    }).slice(0, 5).map((res, key) => (
+                    }).slice(0, 3).map((res, key) => (
                         <p key={key}>{res?.nameRu}&nbsp;&nbsp;</p>
                     ))}</div>)}
-                    
+
                 </div>
             </div>
-            <p className={style.description_mob}>{info?.description}</p>
-            <button className={style.favourite_button} onClick={() => {Fav();}}>{add}</button>
-
-            <div className={style.gallery}>
-            <Swiper
-                spaceBetween={50}
-                navigation
-                lazy={{loadPrevNext: true}}
-                slidesPerView={1}
-            >
-                {gallery?.map((res, key) =>(
-                    <SwiperSlide key={key}>
-                        <img data-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
-                        <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-                    </SwiperSlide>
-                ))}
+            <p className={style.description_mob}>{info?.data.description}</p>
+            <div className={style.additional_block}>
+                <div className={style.additional_info}>
+                    <button className={style.favourite_button} onClick={() => { Fav(); }}>{add}</button>
+                </div>
+                <Swiper
+                    spaceBetween={50}
+                    navigation
+                    lazy={{ loadPrevNext: true }}
+                    slidesPerView={2}
+                >
+                    {gallery?.map((res, key) => (
+                        <SwiperSlide key={key}>
+                            <img data-src={res?.image} alt={info?.data.nameRu} className="swiper-lazy" />
+                            <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </div>
         </div>

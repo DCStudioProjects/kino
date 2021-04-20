@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import style from './CSS/Favourite.module.css'
+import style from './CSS/Favourite.module.sass'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { get } from 'idb-keyval';
 

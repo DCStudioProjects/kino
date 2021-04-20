@@ -7,7 +7,7 @@ const Search = () => {
     const { search, number } = useParams();
     const [result, setResult] = useState(null);
     const [pages, setPages] = useState(null);
-    console.log(number)
+
     useEffect(() => {
         const Fetch = async () => {
             const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${search}&page=${number}`, {

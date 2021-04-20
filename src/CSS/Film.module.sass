@@ -3,6 +3,7 @@ $blue: #3f2aff
 .container
     display: flex
     margin: 1vw
+    align-items: center
 
 .poster_panel
     display: grid
@@ -95,8 +96,19 @@ p, i
     display: flex
     flex-wrap: wrap
 
+.additional_block
+    display: flex
+    margin: 1vw
+
+.additional_info
+    margin-right: 1vw
+    width: 16vw
+    display: flex
+    justify-content: center
+
 .gallery
     height: 50vh
+    width: 74vw
 
 @media (max-width: 767px)
     .film_container
@@ -141,3 +153,16 @@ p, i
     .description_mob
         display: block
         margin: 1vw
+
+    .favourite_button
+        padding: 2vw
+        margin-bottom: 4vw
+
+    .additional_block
+        display: block
+
+    .additional_info
+        width: 100%
+
+    .gallery
+        width: 100%

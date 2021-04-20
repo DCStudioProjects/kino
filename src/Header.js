@@ -95,7 +95,7 @@ const Home = () => {
                             ))}
                         </div>)}
                     </div>
-                    <Link className={style.search_button} to={`/search/${input}/1`}>Найти</Link>
+                    <Link className={style.search_button} to={`/search/${input}/1`} onClick={() => { setDisplay(false); setBorder('') }}>Найти</Link>
                 </div>
 
             </header>
@@ -103,7 +103,7 @@ const Home = () => {
                 <ScrollContainer className="scroll-container" horizontal='true' hideScrollbars='false'>
 
                     {nav?.map((res, key) => (
-                        <Link to={`/genre/${res?.id}`} key={key} draggable='false' className={style.nav_element}>{res?.genre}</Link>
+                        <Link to={`/genre/${res?.genre}/1`} key={key} draggable='false' className={style.nav_element}>{res?.genre}</Link>
                     ))}
                 </ScrollContainer>
             </nav>
