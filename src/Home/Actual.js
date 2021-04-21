@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import style from '../CSS/Actual.module.sass'
-import { BrowserRouter as Router, Link } from "react-router-dom";
 /*import SwiperCore, { Navigation, A11y, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/lazy/lazy.scss';*/
+import 'swiper/components/lazy/lazy.scss';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick-theme.css";*/
 //SwiperCore.use([Navigation, A11y, Lazy]);
 
 const Actual = () => {
@@ -34,7 +33,7 @@ const Actual = () => {
             console.log(actual)
         }
         Fetch();
-    }, [])
+    }, [actual])
     return (
         <section className={style.actual_section}>
             <p className={style.actual_title}>Популярно сейчас</p>

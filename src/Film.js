@@ -4,7 +4,7 @@ import style from './CSS/Film.module.sass';
 import { Helmet } from 'react-helmet-async';
 import SwiperCore, { Navigation, A11y, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { set, get, clear } from 'idb-keyval';
+import { set, get } from 'idb-keyval';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';

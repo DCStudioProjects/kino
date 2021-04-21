@@ -46,8 +46,8 @@ const Genre = () => {
             {(number > result?.pagesCount) && (<h1 className={style.genre_title}>Результатов поиска оказалось немного меньше :(</h1>)}
             <div className={style.genre_section}>
                 {result?.films?.map((res, key) => (
-                    <Link to={`/film/${res?.filmId}`}>
-                        <div className={style.genre_item} key={key} style={{ backgroundImage: `url(${res?.posterUrl})` }}>
+                    <Link to={`/film/${res?.filmId}`} key={key}>
+                        <div className={style.genre_item} style={{ backgroundImage: `url(${res?.posterUrl})` }}>
                         </div>
                         <p>{res?.nameRu}</p>
                     </Link>

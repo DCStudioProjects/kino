@@ -1,5 +1,5 @@
 import './App.sass';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Header from "./Header";
