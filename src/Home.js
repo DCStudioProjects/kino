@@ -1,6 +1,6 @@
-import React from 'react'
-import Favourite from './Favourite'
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import Favourite from './Home/Favourite';
 
 const Home = () => {
     return (

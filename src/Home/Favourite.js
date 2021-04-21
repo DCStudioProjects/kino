@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import style from './CSS/Favourite.module.sass'
+import style from '../CSS/Favourite.module.sass'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { get } from 'idb-keyval';
 
@@ -19,7 +19,7 @@ const Favourite = () => {
     }, [])
 
     return (
-        <div className={style.favourite_section}>
+        <section className={style.favourite_section}>
             <p className={style.favourite_title}>Избранное</p>
             <div className={style.favourite}>
                 {favourite?.map((res, key) => (
@@ -30,7 +30,7 @@ const Favourite = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     )
 }
 

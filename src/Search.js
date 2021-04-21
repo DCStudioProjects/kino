@@ -29,6 +29,8 @@ const Search = () => {
         <div>
             {search !== 'null' && search !== ' ' && (<h1 className={style.search_title}>Результаты поиска по запросу: "{search}"</h1>)}
             {(search === 'null' || search === ' ')  && (<h1 className={style.search_title}>Пустой поисковый запрос</h1>)}
+            {(search !== 'null' && search !== ' ' && (Number(number) > Number(result?.pagesCount))) && (<h1 className={style.genre_title}>Результатов поиска оказалось немного меньше :(</h1>)}
+
             {search !== 'null' && search !== ' ' && (<div>
                 <div className={style.search_section}>
                     {result?.films?.map((res, key) => (
@@ -41,11 +43,11 @@ const Search = () => {
                     ))}
                 </div>
                 <div className={style.pages}>
-                    {number > 1 && (<Link to={`/${number - 1}`}><span className={style.pages_a}>&lt;</span></Link>)}
+                    {number > 1 && (<Link to={`${Number(number) - 1}`}><span className={style.pages_a}>&lt;</span></Link>)}
                     {pages?.map((res, key) => (
                         <NavLink to={`${res + 1}`} key={key} className={style.pages_a} activeClassName={style.pages_a_active}>{res + 1}</NavLink>
                     ))}
-                    {number < result?.pagesCount && (<Link to={`/${number + 1}`}><span className={style.pages_a}>&gt;</span></Link>)}
+                    {number < result?.pagesCount && (<Link to={`${Number(number) + 1}`}><span className={style.pages_a}>&gt;</span></Link>)}
                 </div>
             </div>)}
         </div>
