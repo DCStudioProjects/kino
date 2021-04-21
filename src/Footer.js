@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
     return (
         <footer>
-            <p>2021. Права дядьки защищает сам Пыня.</p>
+            <p>2021. Права защищены дядей Пыней.</p>
         </footer>
     )
 }

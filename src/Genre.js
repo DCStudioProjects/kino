@@ -46,12 +46,11 @@ const Genre = () => {
             {(number > result?.pagesCount) && (<h1 className={style.genre_title}>Результатов поиска оказалось немного меньше :(</h1>)}
             <div className={style.genre_section}>
                 {result?.films?.map((res, key) => (
-                    <div className={style.genre_item} key={key}>
-                        <Link to={`/film/${res?.filmId}`}>
-                            <img src={res?.posterUrl} className={style.genre_image} />
-                            <p>{res?.nameRu}</p>
-                        </Link>
-                    </div>
+                    <Link to={`/film/${res?.filmId}`}>
+                        <div className={style.genre_item} key={key} style={{ backgroundImage: `url(${res?.posterUrl})` }}>
+                        </div>
+                        <p>{res?.nameRu}</p>
+                    </Link>
                 ))}
             </div>
             <div className={style.pages}>
@@ -61,7 +60,7 @@ const Genre = () => {
                 ))}
                 {number < result?.pagesCount && (<Link to={`${Number(number) + 1}`}><span className={style.pages_a}>&gt;</span></Link>)}
             </div>
-        </div>
+        </div >
     )
 }
 
